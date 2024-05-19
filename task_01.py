@@ -31,8 +31,13 @@ class Record(Field):
     def add_phone(self, phone_number):
         self.phones.append(Phone(phone_number))
 
-    def remove_phone(self, phone_number):
-        self.phones.pop(Phone(phone_number))
+    def remove_phone(self, phone_number: str):
+        for phone in self.phones:
+            if phone.number == phone_number:
+                self.phones.remove(phone)
+            return True
+        return False
+
 
     def edit_phone(self, old_phone_number, new_phone_number):
         for phone in self.phones:
