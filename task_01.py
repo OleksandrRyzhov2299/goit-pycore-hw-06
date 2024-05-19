@@ -33,11 +33,11 @@ class Record(Field):
 
     def remove_phone(self, phone_number: str):
         for phone in self.phones:
-            if phone.number == phone_number:
-                self.phones.remove(phone)
-            return True
+            if phone.value == phone_number:
+                search_index = self.phones.index(phone)
+                del self.phones[search_index]
+                return True
         return False
-
 
     def edit_phone(self, old_phone_number, new_phone_number):
         for phone in self.phones:
@@ -72,9 +72,8 @@ class AddressBook(UserDict):
                 return True
         return False
 
-    # Створення нової адресної книги
 
-
+# Створення нової адресної книги
 book = AddressBook()
 
 # Створення запису для John
@@ -103,6 +102,8 @@ print(john)  # Виведення: Contact name: John, phones: 1112223333; 55555
 # Пошук конкретного телефону у записі John
 found_phone = john.find_phone("5555555555")
 print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
+john.remove_phone("5555555555")
 
 # Видалення запису Jane
 book.delete("Jane")
+print(john)
